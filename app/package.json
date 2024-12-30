@@ -4,7 +4,7 @@
   "description": "OFF",
   "main": "app.js",
   "scripts": {
-    "test": "jest",
+   "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "start": "nodemon server.js",
     "build": "npm install"
