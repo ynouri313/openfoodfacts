@@ -41,20 +41,20 @@ jobs:
       - name: Tag Docker images
         run: |
           # Tag nodeapp image
-          docker tag nodeapp:latest ${{ secrets.DOCKER_USERNAME }}/openfoodfacts-nodeapp:latest
+          docker tag openfoodfacts-nodeapp:latest ${{ secrets.DOCKER_USERNAME }}/openfoodfacts-nodeapp:latest
           # Tag mysql image
-          docker tag mysql:latest ${{ secrets.DOCKER_USERNAME }}/mysql:5.7
+          docker tag mysql:5.7 ${{ secrets.DOCKER_USERNAME }}/mysql:5.7
           # Tag mongodb image
-          docker tag mongodb:latest ${{ secrets.DOCKER_USERNAME }}/mongodb:4.4.18
+          docker tag mongodb:4.4.18 ${{ secrets.DOCKER_USERNAME }}/mongodb:4.4.18
 
       - name: Push Docker images to Docker Hub
         run: |
           # Push nodeapp image
-          docker push ${{ secrets.DOCKER_USERNAME }}/nodeapp:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/openfoodfacts-nodeapp:latest
           # Push mysql image
-          docker push ${{ secrets.DOCKER_USERNAME }}/mysql:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/mysql:5.7
           # Push mongodb image
-          docker push ${{ secrets.DOCKER_USERNAME }}/mongodb:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/mongodb:4.4.18
       
   deploy:
     runs-on: ubuntu-latest
