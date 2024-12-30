@@ -32,15 +32,15 @@ jobs:
 
       - name: Build Docker image using Docker Compose
         run: |
-          docker-compose -f docker-compose.yml build
+          docker compose -f docker-compose.yml build
 
       - name: Run tests inside Docker container
         run: |
-          docker-compose run --rm your-service-name npm test  # Replace with your service name defined in docker-compose.yml
+          docker compose run --rm your-service-name npm test  # Replace with your service name defined in docker-compose.yml
 
       - name: Push Docker image to Docker Hub
         run: |
-          docker-compose push
+          docker compose push
 
   deploy:
     runs-on: ubuntu-latest
@@ -59,6 +59,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
             cd /path/to/your/project
             git pull origin main
-            docker-compose -f docker-compose.yml down  # Stop and remove existing containers
-            docker-compose -f docker-compose.yml up --build -d  # Build and run the containers
+            docker compose -f docker-compose.yml down  # Stop and remove existing containers
+            docker compose -f docker-compose.yml up --build -d  # Build and run the containers
           EOF
