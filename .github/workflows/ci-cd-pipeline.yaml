@@ -54,7 +54,7 @@ jobs:
           # Push mysql image
           docker push ${{ secrets.DOCKER_USERNAME }}/mysql:5.7
           # Push mongodb image
-          docker push ${{ secrets.DOCKER_USERNAME }}/mongodb:4.4.18
+          docker push ${{ secrets.DOCKER_USERNAME }}/mongo:4.4.18
       
   deploy:
     runs-on: ubuntu-latest
