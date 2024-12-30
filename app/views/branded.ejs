@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= brandedIngredient.brandOwner %></title>
+    <link rel='stylesheet' type="text/css" href='/stylesheets/style.css'/>
+
+    <style>
+        .recipe-summary ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recipe-summary li {
+            margin: 5px 0;
+        }
+
+        .recipe-instructions ol {
+            margin-left: 20px;
+        }
+        .nutrient-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nutrient-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding: 5px 0;
+        }
+
+        .nutrient-name {
+            text-align: left;
+            flex: 1;
+        }
+
+        .nutrient-value {
+            text-align: right;
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a class="btn_previous_page" href="/search_branded">
+        Previous Page
+    </a>
+
+    <div class="page-content">
+        <h1><%= brandedIngredient.description %> by <%= brandedIngredient.brandOwner %></h1>
+        <h2><%= brandedIngredient.brandedFoodCategory %></h2>
+
+        <section class="recipe-summary">
+            <% if (brandedIngredient && brandedIngredient.foodNutrients) { %>
+                <ul class="nutrient-list">
+                    <% brandedIngredient.foodNutrients.forEach(nutrient => { %>
+                        <li class="nutrient-item">
+                            <span class="nutrient-name"><%= nutrient.nutrient.name %></span>
+                            <span class="nutrient-value">
+                              <%= nutrient.amount %> <%= nutrient.nutrient.unitName %>
+                              (Rank: <%= nutrient.nutrient.rank %>)
+                            </span>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <p>No nutrients available for this ingredient.</p>
+            <% } %>
+
+        </section>
+    </div>
+</div>
+</body>
+</html>

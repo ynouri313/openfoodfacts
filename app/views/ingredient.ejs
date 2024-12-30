@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= ingredient.product_name %></title>
+    <link rel='stylesheet' type="text/css" href='/stylesheets/style.css'/>
+
+    <style>
+        .recipe-summary ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recipe-summary li {
+            margin: 5px 0;
+        }
+
+        .recipe-instructions ol {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a class="btn_previous_page" href="/search_ingredients">
+        Previous Page
+    </a>
+
+    <div class="page-content">
+        <h1><%= ingredient.product_name %></h1>
+        <h2><%= ingredient.brands %></h2>
+        <p><strong>Categories:</strong> <%= ingredient.categories %></p>
+
+        <section class="recipe-summary">
+            <ul>
+                <li><strong>EcoScore: </strong> <%= ingredient.ecoscore_score || "No value yet" %></li>
+                <li><strong>NutriScore: </strong> <%= ingredient.nutriscore_grade || "No value yet" %></li>
+                <li><strong>Nova Group: </strong> <%= ingredient.nova_groups || "No value yet" %></li>
+            </ul>
+        </section>
+    </div>
+</div>
+</body>
+</html>

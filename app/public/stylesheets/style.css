@@ -1,0 +1,167 @@
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    scroll-behavior: smooth;
+    overflow-y: auto;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../images/kitchen.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px);
+    z-index: -1;
+}
+.page-content {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 1rem;
+    color: white;
+    font-weight: bold;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 10%;
+    padding: 5%;
+}
+.btn_previous_page {
+    position: fixed;
+    top: 40px;
+    left: 40px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn_previous_page:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    padding: 20px;
+}
+
+.menu-item {
+    background-color: rgba(75, 85, 99, 0.482);
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #e5e7eb;
+    text-align: start;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    min-width: 100%;
+    transition: all 0.7s ease-in-out;
+    transform: scale(1);
+}
+
+.menu-item:hover {
+    background-color: #d1d5db;
+    color: #000;
+    padding-left: 3rem;
+    transform: scale(1.02);
+}
+
+.main_image_border {
+    position: absolute;
+    z-index: 0;
+    background-color: black;
+    top: 0;
+    bottom: 0;
+    left: 44.2rem;
+    right: -20rem;
+    clip-path: circle(55%);
+}
+
+.main_image_section {
+    position: absolute;
+    background-color: gray;
+    top: 0;
+    bottom: 0;
+    left: 45rem;
+    right: -20rem;
+    clip-path: circle(55%);
+}
+
+a {
+    color: #00B7FF;
+}
+
+/* Dark Mode */
+.dataTables_wrapper {
+    background-color: #1e1e2d; /* Dark background */
+    color: #ffffff; /* Light text */
+}
+
+table.dataTable {
+    border-collapse: collapse;
+    background-color: rgba(28, 28, 31, 0.88); /* Table background */
+    border: 1px solid #444; /* Border for the table */
+}
+
+table.dataTable th, table.dataTable td {
+    color: #f0f0f0; /* Text color for table cells */
+    border: 1px solid #444; /* Cell borders */
+    padding: 10px; /* Add padding for better spacing */
+    text-align: center;
+}
+
+table.dataTable thead {
+    background-color: #333; /* Header background */
+    color: #fff; /* Header text color */
+}
+
+/* Hover Effect */
+.row-hover:hover {
+    background-color: #444; /* Row hover background */
+    color: #fff; /* Row hover text color */
+}
+
+/* Pagination Customization */
+.dataTables_paginate {
+    margin-top: 30px; /* Space between content and pagination */
+}
+
+.dataTables_paginate .paginate_button {
+    background-color: #333; /* Pagination button background */
+    color: #fff; /* Pagination button text */
+    border: 1px solid #444;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.dataTables_paginate .paginate_button:hover {
+    background-color: #555; /* Hover background for buttons */
+    color: #fff; /* Hover text color for buttons */
+}
+
+.dataTables_filter input {
+    background-color: #252537; /* Dark background */
+    color: #fff; /* Light text */
+    border: 1px solid #444; /* Border color */
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.dataTables_length select {
+    background-color: #252537; /* Dropdown background */
+    color: #fff; /* Dropdown text */
+    border: 1px solid #444;
+    padding: 5px;
+    border-radius: 4px;
+}

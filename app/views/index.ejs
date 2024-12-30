@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>OFF Project</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://cdn.tailwindcss.com/3.3.2"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <div
+            style="z-index: 40; position: absolute; background-color: #ffffff39; top: 3%; left: 3%; right: 50%; padding: 2%;border-radius: 1rem;">
+            <h1 class="text-5xl mb-6" style="font-family: Pacifico,serif"><strong>Open Food Facts</strong></h1>
+            <p class="text-justify">Ce projet est le résultat d'une recherche sur les données ouvertes de l'Open Food Facts. Il s'agit d'un ensemble de données sur les produits alimentaires du monde entier. L'objectif est de créer un pipeline ETL pour extraire, transformer et charger les données dans des base de données Mysql puis MongoDB. Ensuite, une application Node.js est utilisée pour accéder aux données via API puis pour présenter une interface pour consulter les données transformées.</p>
+        </div>
+        <div class="main_image_border">
+
+        </div>
+        <div
+            class="main_image_section">
+            <img src="/images/dish_image.png" alt="food_image"
+                class="main_image object-cover bg-center h-full w-auto transition-opacity duration-500 ease-in-out opacity-100">
+            <img src="/images/ingredients_image2.JPG" alt="food_image"
+                class="main_image object-cover h-full w-auto transition-opacity duration-500 ease-in-out opacity-0 absolute top-0 left-0">
+            <img src="/images/branded_image2.JPG" alt="food_image"
+                class="main_image object-cover h-full w-auto transition-opacity duration-500 ease-in-out opacity-0 absolute top-0 left-0">
+        </div>
+
+        <div style="z-index: 4333;" class="flex flex-col justify-center items-start min-h-screen ml-[20vw] mt-[10vh] space-y-6 mr-[40vw]">
+            <a data-image-index="0" href="/search_recettes" class="menu-item">
+                <h1>Recipes</h1>
+            </a>
+            <a data-image-index="1" href="/search_ingredients" class="menu-item">
+                <h1>Ingredient</h1>
+            </a>
+            <a data-image-index="2" href="/search_branded" class="menu-item">
+                <h1>Branded</h1>
+            </a>
+        </div>
+    </div>
+</body>
+<script>
+    document.querySelectorAll('[data-image-index]').forEach(card => {
+        card.addEventListener('mouseover', () => {
+            const index = card.getAttribute('data-image-index');
+            const images = document.querySelectorAll('.main_image');
+
+            images.forEach((img, i) => {
+                if (i == index) {
+                    img.style.opacity = '1';
+                    img.style.zIndex = '1';
+                } else {
+                    img.style.opacity = '0';
+                    img.style.zIndex = '0';
+                }
+            });
+        });
+    });
+</script>
+</html>

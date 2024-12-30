@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aliments</title>
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Aliments Information</h1>
+        <form action="/aliments" method="GET">
+            <input type="text" name="product_name" placeholder="Search by Product Name" value="<%= productName || '' %>">
+            <div>
+                <label><input type="checkbox" name="nutriscore_grade" value="a" <%= nutriscoreGrades.includes('a') ? 'checked' : '' %>> a</label>
+                <label><input type="checkbox" name="nutriscore_grade" value="b" <%= nutriscoreGrades.includes('b') ? 'checked' : '' %>> b</label>
+                <label><input type="checkbox" name="nutriscore_grade" value="c" <%= nutriscoreGrades.includes('c') ? 'checked' : '' %>> c</label>
+                <label><input type="checkbox" name="nutriscore_grade" value="d" <%= nutriscoreGrades.includes('d') ? 'checked' : '' %>> d</label>
+                <label><input type="checkbox" name="nutriscore_grade" value="e" <%= nutriscoreGrades.includes('e') ? 'checked' : '' %>> e</label>
+            </div>
+            <input type="number" name="ecoscore_value" placeholder="Ecoscore greater than" value="<%= ecoscoreValue || '' %>">
+            <button type="submit">Search</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    
+                    <th>Product Name</th>
+                    <th>Ecoscore Score</th>
+                    <th>Nutriscore Grade</th>
+                    <th>Novagroup Score</th>
+                    <th>Brands</th>
+                    <th>Categories</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                <% aliments.forEach(aliment => { %>
+                    <tr>
+                        
+                        <td><%= aliment.product_name %></td>
+                        <td><%= aliment.ecoscore_score %></td>
+                        <td><%= aliment.nutriscore_grade %></td>
+                        <td><%= aliment.nova_groups %></td>
+                        <td><%= aliment.brands %></td>
+                        <td> 
+                            <% if (Array.isArray(aliment.categories) && aliment.categories.length > 0) { %>
+                                <% aliment.categories.forEach(function(category) { %>
+                                    <span><%= category %></span><br>
+                                <% }); %>
+                            <% } else { %>
+                                <span>No categories available</span>
+                            <% } %>
+                    </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <br> <!-- adds a line break between paragraphs -->
+        <div class="pagination">
+            <% if (page > 1) { %>
+                <a href="/aliments?page=<%= page - 1 %>&limit=<%= limit %><%= productName ? '&product_name=' + productName : '' %><%= nutriscoreGrades.length ? '&nutriscore_grade=' + nutriscoreGrades.join('&nutriscore_grade=') : '' %><%= ecoscoreValue ? '&ecoscore_value=' + ecoscoreValue : '' %>">&laquo; Previous</a>
+            <% } %>
+            <% for (var i = startPage; i <= endPage; i++) { %>
+                <a href="/aliments?page=<%= i %>&limit=<%= limit %><%= productName ? '&product_name=' + productName : '' %><%= nutriscoreGrades.length ? '&nutriscore_grade=' + nutriscoreGrades.join('&nutriscore_grade=') : '' %><%= ecoscoreValue ? '&ecoscore_value=' + ecoscoreValue : '' %>" class="<%= (i === page) ? 'active' : '' %>"><%= i %></a>
+            <% } %>
+            <% if (page < totalPages) { %>
+                <a href="/aliments?page=<%= page + 1 %>&limit=<%= limit %><%= productName ? '&product_name=' + productName : '' %><%= nutriscoreGrades.length ? '&nutriscore_grade=' + nutriscoreGrades.join('&nutriscore_grade=') : '' %><%= ecoscoreValue ? '&ecoscore_value=' + ecoscoreValue : '' %>">Next &raquo;</a>
+            <% } %>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= recipe.nomRecette %></title>
+    <link rel='stylesheet' type="text/css" href='/stylesheets/style.css'/>
+
+    <style>
+        .recipe-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .recipe-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .recipe-details {
+            margin-top: 20px;
+        }
+
+        .recipe-summary ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recipe-summary li {
+            margin: 5px 0;
+        }
+
+        .recipe-instructions ol {
+            margin-left: 20px;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .ingredients {
+            white-space: pre-line;
+            margin: 20px 0;
+        }
+
+        .recommendations {
+            margin-top: 30px;
+            padding: 20px;
+            color: white;
+            border-radius: 8px;
+        }
+
+        .recommendation-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nutriscore {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nutriscore-a {
+            background-color: #037c3f;
+        }
+        .nutriscore-b {
+            background-color: #76aa27;
+        }
+        .nutriscore-c {
+            background-color: #f4ba18;
+        }
+        .nutriscore-d {
+            background-color: #e57c00;
+        }
+        .nutriscore-e {
+            background-color: #d43121;
+        }
+
+        #recommendation-container {
+            display: none;
+        }
+
+        .recommendation-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 20px 0;
+        }
+
+        .recommendation-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a class="btn_previous_page" href="/search_recettes">
+        Previous Page
+    </a>
+
+    <div class="page-content">
+        <h1><%= recipe.nomRecette %></h1>
+
+        <img class="recipe-image"
+             src="<%= recipe.imgUrl %>"
+             alt="<%= recipe.nomRecette %>">
+        <h2><%= recipe.descRecette %></h2>
+        <p><strong>Categories:</strong> <%= recipe.categoriesRecette %></p>
+
+        <section class="recipe-summary">
+            <ul>
+                <li><strong>Portions:</strong> <%= recipe.portions %></li>
+                <li><strong>Preparation Time:</strong> <%= recipe.tempsPrep %></li>
+                <li><strong>Cooking Time:</strong> <%= recipe.tempsCuisson %></li>
+            </ul>
+        </section>
+
+        <div class="recipe-details">
+            <h2>Ingredients:</h2>
+            <div class="ingredients">
+                <%= recipe.ingredientsRecette || 'No ingredients listed' %>
+            </div>
+
+            <section class="recipe-instructions">
+                <h2>Preparation Instructions</h2>
+                <ol>
+                    <% recipe.prepRecette.split('.').forEach(step => { %>
+                        <% if (step.trim()) { %> <!-- Avoid adding empty steps -->
+                        <li><%= step.trim() %></li>
+                        <% } %>
+                    <% }); %>
+                </ol>
+            </section>
+
+            <% if (recommendations && recommendations.length > 0) { %>
+                <button class="recommendation-button"
+                        onclick="toggleRecommendations()">
+                    Show Healthy Alternatives
+                </button>
+
+                <div id="recommendation-container" class="recommendations">
+                    <h3>Recommended Healthy Alternatives:</h3>
+                    <% recommendations.forEach(rec => { %>
+                        <div class="recommendation-item">
+                            <div class="original-ingredient">
+                                <%= rec.original %>
+                            </div>
+                            <div class="recommended-alternative">
+                                <% if (rec.recommendation) { %>
+                                    Try:
+                                    <a href="/ingredient/<%= rec.recommendation._id %>">
+                                        <%= rec.recommendation.product_name %>
+                                    </a>
+                                    <span class="nutriscore nutriscore-<%= rec.recommendation.nutriscore_grade.toLowerCase() %>">
+                                           Nutriscore: <%= rec.recommendation.nutriscore_grade.toUpperCase() %>
+                                        </span>
+                                <% } else { %>
+                                    <em>No healthier alternative found</em>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } %>
+        </div>
+
+
+    </div>
+
+    <script>
+        function toggleRecommendations() {
+            const container = document.getElementById('recommendation-container');
+            const button = document.querySelector('.recommendation-button');
+
+            if (container.style.display === 'none' || container.style.display === '') {
+                container.style.display = 'block';
+                button.textContent = 'Hide Healthy Alternatives';
+            } else {
+                container.style.display = 'none';
+                button.textContent = 'Show Healthy Alternatives';
+            }
+        }
+
+    </script>
+</div>
+</body>
+</html>

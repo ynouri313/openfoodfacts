@@ -1,0 +1,10 @@
+# Utiliser une image de base Node.js officielle
+FROM mongo:4.4.18
+# Copier les fichiers package.json et package-lock.json
+WORKDIR /mongodb
+COPY *.jsonl ./
+COPY import_data.sh /docker-entrypoint-initdb.d/
+RUN chmod +x /docker-entrypoint-initdb.d/import_data.sh
+ENTRYPOINT ["/docker-entrypoint-initdb.d/import_data.sh"]
+EXPOSE 27017
+CMD ["mongod", "--bind_ip", "0.0.0.0"]

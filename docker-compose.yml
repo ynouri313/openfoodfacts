@@ -1,0 +1,67 @@
+#version: '3.8'
+services:
+  nodeapp:
+    build: 
+      context: ./app
+      dockerfile: dockerfile
+    container_name: nodeapp
+    ports:
+      - "80:3000"
+    depends_on:
+      - mongodb
+      - mysql
+    environment:
+      #- MONGO_URI=mongodb://mongodb:27017/off
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_DATABASE=recettes
+    restart: always
+    networks:
+      - app-network
+
+  mongodb:
+    build: 
+       context: ./mongodb
+       dockerfile: dockerfile
+    image: mongo:4.4.18
+    container_name: mongodb
+    command: mongod --bind_ip 0.0.0.0
+    ports:
+      - "27017:27017"
+    volumes:
+    #    - ./mongodb:/data/db  # Only mounts MongoDB-specific files
+        - mongo-data:/data/db  # Add this line
+    environment:
+      MONGO_INITDB_DATABASE: off
+    restart: always
+    networks:
+      - app-network
+
+  mysql:
+    build: 
+       context: ./mysql-data
+       dockerfile: dockerfile
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: recettes
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      #- .my.cnf:/etc/mysql/my.cnf
+      - mysql-data:/var/lib/mysql
+      - ./mysql-data:/docker-entrypoint-initdb.d  # Only mounts MySQL-specific files
+    restart: always
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+  mysql-data:
+
+networks:
+  app-network:
