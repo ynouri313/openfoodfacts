@@ -32,7 +32,7 @@ jobs:
 
       - name: Build Docker image using Docker Compose
         run: |
-          docker compose -f docker-compose.yml build
+          docker compose up --build -d
 
       # - name: Run tests inside Docker container
       #   run: |
