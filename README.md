@@ -1,6 +1,6 @@
 # OFF 
 
-## 1. Présentation
+## 1. Presentation
 This project is the result of open data research into Open Food Facts. This is a dataset of food products from around the world. The aim is to create an ETL pipeline to extract, transform and load the data into Mysql and MongoDB databases. Then, a Node.js application is used to access the data via API, and to present an interface for consulting the transformed data.
 
 ---
@@ -346,7 +346,7 @@ This project is the result of open data research into Open Food Facts. This is a
 
 ---
 
-## 4. Déploiement
+## 4. Deployment
 To deploy the application with Docker, use the `docker-compose.yml` file supplied. This configuration allows you to build the necessary images and run all services in the background.
 
 - Command to deploy the application :
