@@ -4,8 +4,10 @@
   "description": "OFF",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "test": "jest",
+    "lint": "eslint .",
+    "start": "nodemon server.js",
+    "build": "npm install"
   },
   "author": "",
   "license": "ISC",
