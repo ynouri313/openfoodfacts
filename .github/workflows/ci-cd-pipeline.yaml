@@ -38,9 +38,13 @@ jobs:
         run: |
           docker compose -f docker-compose.yml run --rm nodeapp npm test  
 
+      - name: Tag Docker Hub image
+        run: |
+          docker tag your-app-name:latest ${{ secrets.DOCKER_USERNAME }}/your-app-name:latest
+
       - name: Push Docker image to Docker Hub
         run: |
-          docker compose push
+          docker push ${{ secrets.DOCKER_USERNAME }}/your-app-name:latest
 
   deploy:
     runs-on: ubuntu-latest
