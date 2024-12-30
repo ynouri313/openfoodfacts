@@ -123,15 +123,15 @@ app.get('/search_branded', authenticateJWT, (req, res) => {
 app.get('/heartbeat', (req, res) => {
     console.log('Heartbeat');
     res.send({
-        nomApplication: 'OFF'
+        ApplicationName: 'OFF'
     });
 });
 
 app.get('/extracted_data', async (req, res) => {
     res.json({
-        "nbProduitsAlimentairesScannes": await Ingredient.countDocuments(),
-        "nbProduitsAlimentairesDeBase": await BrandedIngredient.countDocuments(),
-        "nbRecettesCuisine": (await Recette.findAll()).length,
+        "nbScannedFoodProducts": await Ingredient.countDocuments(),
+        "nbBasicFoodProducts": await BrandedIngredient.countDocuments(),
+        "nbCookingRecipes": (await Recette.findAll()).length,
     });
 });
 

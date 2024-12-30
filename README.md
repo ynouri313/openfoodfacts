@@ -1,44 +1,44 @@
 # OFF 
 
 ## 1. Présentation
-Ce projet est le résultat d'une recherche sur les données ouvertes de l'Open Food Facts. Il s'agit d'un ensemble de données sur les produits alimentaires du monde entier. L'objectif est de créer un pipeline ETL pour extraire, transformer et charger les données dans des base de données Mysql puis MongoDB. Ensuite, une application Node.js est utilisée pour accéder aux données via API puis pour présenter une interface pour consulter les données transformées.
+This project is the result of open data research into Open Food Facts. This is a dataset of food products from around the world. The aim is to create an ETL pipeline to extract, transform and load the data into Mysql and MongoDB databases. Then, a Node.js application is used to access the data via API, and to present an interface for consulting the transformed data.
 
 ---
 
 ## 2. Features
-- **Processus ETL**:
-    - Extraction des données à partir de l'API Open Food Facts.
-    - Transformation des données pour les rendre exploitables.
-    - Chargement des données dans des bases de données MySQL et MongoDB.
-- **Base de données MySQL**:
-  Stockage des recettes puis des utilusateurs.
-- **Base de données MongoDB**:
-Stockage des produits alimentaires puis des aliments de marques.
+- **ETL Process**:
+    - Data extraction from the Open Food Facts API.
+    - Transformation of data to make it usable.
+    - Load data into MySQL and MongoDB databases.
+- **MySQL DB**:
+  Storage of recipes and users.
+- **MongoDB DB**:
+  Storage of food products, then branded foods.
 - **Node.js**:
-    - API pour accéder aux données.
-    - Interface pour consulter les données transformées.
+    - API to access data.
+    - Interfaces for viewing transformed data.
 
 ---
 
 ## 3. API Endpoints
-- `GET /heartbeat` : Informations sur l'application.
-  - Réponse : 
+- `GET /heartbeat` : application heartbeat.
+  - Response : 
   ```json
     {
-        "nomApplication": "OFF"
+        "ApplicationName": "OFF"
     }
   ```
-- `GET /extracted_data` : Statistiques sur les données extraites.
-  - Réponse : 
+- `GET /extracted_data` : Statistics on extracted data.
+  - Response : 
   ```json
     {
-      "nbProduitsAlimentairesScannes": 15882,
-      "nbProduitsAlimentairesDeBase": 8066,
-      "nbRecettesCuisine": 140
+      "nbScannedFoodProducts": 15882,
+      "nbBasicFoodProducts": 8066,
+      "nbCookingRecipes": 140
     }
   ```
-- `GET /transformed_data` : Indicateurs de qualité et catégories d’aliments.
-  - Réponse :
+- `GET /transformed_data` : Quality indicators and food categories.
+  - Response :
   ```json
     {
     "indicateurDeQualite": {
@@ -56,8 +56,8 @@ Stockage des produits alimentaires puis des aliments de marques.
       }
     }
   ```
-- `GET /type` : Liste des catégories de recettes.
-   - Réponse :
+- `GET /type` : List of recipe categories.
+   - Response :
    ```json
    [
      "10 ingrédients ou moins",
@@ -68,7 +68,7 @@ Stockage des produits alimentaires puis des aliments de marques.
      "30 minutes ou moins"
    ]
    ```
-- `POST /recette` : Retourne une recette aléatoire selon des critères.
+- `POST /recette` : Returns a random recipe according to criteria.
   - Body :
   ```json
      {
@@ -77,7 +77,7 @@ Stockage des produits alimentaires puis des aliments de marques.
        ]
      }
   ```
-  - Réponse:
+  - Response:
   ```json
      {
     "recette": {
@@ -98,9 +98,9 @@ Stockage des produits alimentaires puis des aliments de marques.
   }
   ```
   
-- `GET /recette` : Liste de toutes les recettes.
+- `GET /recette` : Returns all recipes.
 -
-- Réponse (format) :
+- Response (format) :
   ```json 
    [
       {
@@ -118,7 +118,7 @@ Stockage des produits alimentaires puis des aliments de marques.
     },
   ]
   ```
-  - Réponse (exemple) :
+  - Response (exemple) :
   ```json 
    [
        {
@@ -137,8 +137,8 @@ Stockage des produits alimentaires puis des aliments de marques.
     ...
   ]
   ```
-- `GET /ingredient` : Liste de tous les ingrédients.
-- Réponse (format) :
+- `GET /ingredient` : List of all ingredients.
+- Response (format) :
   ```json 
    [
       {
@@ -156,7 +156,7 @@ Stockage des produits alimentaires puis des aliments de marques.
       }
   ]
   ```
-  - Réponse (exemple) :
+  - Response (exemple) :
   ```json 
    [
       {
@@ -173,8 +173,8 @@ Stockage des produits alimentaires puis des aliments de marques.
       ...
   ]
   ```
-- `GET /branded` : Liste de tous les aliments de marque.
-- Réponse (format) :
+- `GET /branded` : List of all branded foods.
+- Response (format) :
   ```json 
    [
       {
@@ -213,7 +213,7 @@ Stockage des produits alimentaires puis des aliments de marques.
       }
   ]
   ```
-  - Réponse (exemple) :
+  - Response (exemple) :
     ```json 
      [
         {
@@ -254,7 +254,7 @@ Stockage des produits alimentaires puis des aliments de marques.
     ]
     ```
 
-- `POST /cuisiner` : Recommandations d'ingrédients selon critères (qualité, marque).
+- `POST /cuisiner` : Ingredient recommendations based on criteria (quality, brand).
   - Body :
   ```json
      {
@@ -272,7 +272,7 @@ Stockage des produits alimentaires puis des aliments de marques.
         }
   }   
   ```
-  - Réponse (format):
+  - Response (format):
   ```json
    [
       {
@@ -307,7 +307,7 @@ Stockage des produits alimentaires puis des aliments de marques.
         }
     ]
   ```
-  - Réponse :
+  - Response :
   ```json
    [
       {
@@ -347,27 +347,27 @@ Stockage des produits alimentaires puis des aliments de marques.
 ---
 
 ## 4. Déploiement
-Pour déployer l'application avec Docker, utilisez le fichier `docker-compose.yml` fourni. Cette configuration permet de construire les images nécessaires et de lancer tous les services en arrière-plan.
+To deploy the application with Docker, use the `docker-compose.yml` file supplied. This configuration allows you to build the necessary images and run all services in the background.
 
-- Commande pour déployer l'application :
+- Command to deploy the application :
   ```bash
   docker-compose up --build -d
 
 ---
-## 5. Interface Utilisateurs
-L'application offre une interface web conviviale accessible depuis [http://localhost](http://localhost). Voici un aperçu des principales pages :
+## 5. User interfaces
+The application features a user-friendly web interface accessible from [http://localhost](http://localhost). Here is an overview of the main pages:
 
-- **Page d'accueil** : Accueil général avec un aperçu des fonctionnalités principales.
-- **Recherche de recettes (`/search_recettes`)** : Permet de chercher des recettes disponibles dans la base de données en fonction de critères spécifiques.
-- **Recherche d'ingrédients (`/search_ingredients`)** : Fournit une interface pour explorer les différents ingrédients extraits et transformés.
-- **Recherche par marque (`/search_branded`)** : Accède aux produits alimentaires spécifiques de marques référencées.
+- **Home page** : Home page with an overview of the main functions.
+- **Search recipes (`/search_recettes`)** : Search for recipes available in the database according to specific criteria.
+- **Search Ingredients (`/search_ingredients`)** : Provides an interface for exploring different extracted and processed ingredients.
+- **Search Branded (`/search_branded`)** : Access to specific food products from referenced brands.
 
-Ces pages facilitent l'interaction et la visualisation des données transformées issues de l'ETL.
+These pages facilitate the interaction and visualization of transformed data from ETL.
 
 ---
-## 6. Authentification
-L'application inclut un système d'authentification pour sécuriser certaines fonctionnalités. Pour accéder aux pages protégées, connectez-vous à l'application via [la page de connexion](http://localhost/login).
+## 6. Authentication
+The application includes an authentication system to secure certain functions. To access protected pages, log in to the application via [the login page](http://localhost/login).
 
-- **Identifiants de connexion par défaut** :
-    - **Nom d'utilisateur** : `prof`
-    - **Mot de passe** : `prof`
+- **Default login credentials** :
+    - **Username** : `prof`
+    - **Password** : `prof`
