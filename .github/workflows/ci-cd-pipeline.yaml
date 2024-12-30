@@ -71,8 +71,8 @@ jobs:
       - name: Deploy Docker Compose to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
-            cd /path/to/your/project
+            cd ${{ secrets.My_REPO_DIR }}
             git pull origin main
-            docker compose -f docker-compose.yml down  # Stop and remove existing containers
-            docker compose -f docker-compose.yml up --build -d  # Build and run the containers
+            docker compose down  # Stop and remove existing containers
+            docker compose up --build -d  # Build and run the containers
           EOF
