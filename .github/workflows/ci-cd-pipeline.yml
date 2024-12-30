@@ -36,7 +36,7 @@ jobs:
 
       - name: Run tests inside Docker container
         run: |
-          docker compose run --rm your-service-name npm test  # Replace with your service name defined in docker-compose.yml
+          docker compose -f docker-compose.yml run --rm nodeapp npm test  
 
       - name: Push Docker image to Docker Hub
         run: |
